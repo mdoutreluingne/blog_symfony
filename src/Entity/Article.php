@@ -13,6 +13,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks()
  */
 class Article
 {
@@ -136,6 +137,14 @@ class Article
         return $this;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function PrePersistPublicationDate()
+    {
+        $this->publicationDate = new \DateTime();
+    }
+
     public function getLastUpdateDate(): ?\DateTimeInterface
     {
         return $this->lastUpdateDate;
@@ -146,6 +155,14 @@ class Article
         $this->lastUpdateDate = $lastUpdateDate;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate 
+     */
+    public function PreUpdatePublicationDate()
+    {
+        $this->lastUpdateDate = new \DateTime();
     }
 
     public function getIsPublished(): ?bool

@@ -3,20 +3,28 @@
 {% block title %}{{ articles.title }}{% endblock %}
 
 {% block body %}
-<article class="container">
-    <div class="row">
-        <div class="col s12 m12 l8 offset-l2">
-            <h2>{{ articles.title }}</h2>
-            <span>14/01/2019</span>
-            <p>
+<div class="thumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="article_show_title">
+                    <h2>{{ articles.title }}</h2>
+                    <span>{{ articles.publicationDate |date("m/d/Y H:i:s", "Europe/Paris") }}</span>
+                    <div class="categories">
+                        {% for category in articles.categories %}
+                            <h6><span class="badge badge-pill badge-primary">{{ category }}</span></h6>
+                        {% endfor %}
+                    </div>
+                </div>
                 <img src="https://images.pexels.com/photos/276452/pexels-photo-276452.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                    class="responsive-img">
-            </p>
-            <span class="categories">php, html, css</span>
+                    class="img-fluid img_show" alt="...">
+            </div>
         </div>
     </div>
+</div>
+<article class="container">
     <div class="row">
-        <div class="col s12 m12 l8 offset-l2">
+        <div class="col-sm-12 col-md-12 col-lg-12 offset-l2">
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

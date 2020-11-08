@@ -20,8 +20,6 @@ class ArticleType extends AbstractType
             ])
             ->add('title')
             ->add('content')
-            ->add('publicationDate')
-            ->add('lastUpdateDate')
             ->add('isPublished')
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
