@@ -1,4 +1,9 @@
-/*Index*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Home */
 .articles {
     height: 100% !important;
 }
