@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Newsletter;
+use App\Form\NewsletterType;
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +31,17 @@ class ArticleController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
+        $newsletter = new Newsletter();
+        $form = $this->createForm(NewsletterType::class, $newsletter);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newsletter->setRegistered(true);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($newsletter);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre email a bien été enregistrer');
+        }
 
         $articles = $paginator->paginate(
             $this->repository->findAll(),
@@ -37,7 +50,8 @@ class ArticleController extends AbstractController
         );
 
         return $this->render('article/index.html.twig', [
-            'articles' => $articles
+            'articles' => $articles,
+            'form' => $form->createView()
         ]);
     }
 
