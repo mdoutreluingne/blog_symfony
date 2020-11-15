@@ -1,0 +1,19 @@
+<div class="card mb-6">
+    <div class="card-header p-0">
+        {% if article.picture %}
+        <img src="{{vich_uploader_asset(article, 'imageFile') }}" width="100%">
+        {% else %}
+        <img src="{{'/images/articles/empty.jpeg'}}" width="100%">
+        {% endif %}
+    </div>
+    <div class="card-body text-center">
+        <h4>{{ article.title }}</h4>
+        <p>Responsive web design is an approach to web design that makes web pages render well on a
+            variety of
+            devices and screen sizes.</p>
+    </div>
+    <div class="card-footer">
+        <a href="{{path('blog_show', {id: article.id, slug: article.slug}) }}" class="btn btn-success">Learn
+            more...</a>
+    </div>
+</div>
