@@ -5,9 +5,6 @@
 {% block body %}
 <div class="container">
     <div class="row">
-        <h1>Article Thumbnails</h1>
-    </div>
-    <div class="row">
         <div class="col-md-7 col-lg-8 col-sm-12">
             <div class="card bg-dark text-white articles">
                 <img src="https://images.pexels.com/photos/276452/pexels-photo-276452.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
@@ -37,12 +34,16 @@
         {% for article in articles %}
         <div class="col-md-3 col-lg-3 col-sm-12 mt-4">
             <div class="card bg-dark text-white articles">
+                {% if article.picture %}
                 <img src="{{vich_uploader_asset(article, 'imageFile') }}" class="img-fluid">
+                {% else %}
+                <img src="{{'/images/articles/empty.jpeg'}}" class="img-fluid">
+                {% endif %}
                 <div class="card-img-overlay">
                     <div class="block-title">
                         <h5><a href="{{path('blog_show', {id: article.id, slug: article.slug}) }}"
                                 class="link_article">{{ article.title }}</a></h5>
-                        <p class="by-author"><small>{{article.content | slice(0, 150) ~ '...' | nl2br}}</small></p>
+                        <p class="by-author"><small>{{article.content | slice(0, 50) ~ '...' | nl2br}}</small></p>
                     </div>
                 </div>
             </div>

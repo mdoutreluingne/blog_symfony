@@ -49,7 +49,7 @@ class AdminArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_show", methods={"GET"})
+     * @Route("/{id}", name="admin_article_show", methods={"GET"})
      */
     public function show(Article $article): Response
     {
@@ -59,7 +59,7 @@ class AdminArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admin_article_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Article $article): Response
     {
@@ -79,7 +79,7 @@ class AdminArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin_article_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Article $article): Response
     {
