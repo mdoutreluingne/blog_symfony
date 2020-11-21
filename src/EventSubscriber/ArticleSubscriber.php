@@ -3,17 +3,19 @@
 namespace App\EventSubscriber;
 
 use App\Event\ArticlePostEvent;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Mailer\MailerInterface;
+use App\Repository\NewsletterRepository;
+use App\Service\MailerService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ArticleSubscriber implements EventSubscriberInterface
 {
     private $mailer;
+    private $newsletterRepository;
 
-    public function __construct(MailerInterface $mailer)
+    public function __construct(MailerService $mailer, NewsletterRepository $newsletterRepository)
     {
         $this->mailer = $mailer;
+        $this->newsletterRepository = $newsletterRepository;
     }
 
     public static function getSubscribedEvents()
@@ -25,18 +27,16 @@ class ArticleSubscriber implements EventSubscriberInterface
 
     public function onNewArticle(ArticlePostEvent $event)
     {
-        dd($event);
-        $email = (new Email())
-            ->from('hello@example.com')
-            ->to('you@example.com')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
+        //Récupération de la table newsletter inscrit
+        $newsletterBdd = $this->newsletterRepository->findVisibleQuery();
 
-        $this->mailer->send($email);
+        //Envoie chaque email pour les utilisateurs abonné
+        foreach ($newsletterBdd as $newsletter) {
+
+            $this->mailer->send($newsletter->getEmail(), 'noreplay@gmail.com', 'Un nouveau poste a été publié', 'newsletter/send_new_post.html.twig', [
+                'article' => $event->getArticle(),
+                'email_newsletter' => $newsletter->getEmail()
+            ]);
+        }
     }
 }

@@ -43,7 +43,7 @@
                     <div class="block-title">
                         <h5><a href="{{path('blog_show', {id: article.id, slug: article.slug}) }}"
                                 class="link_article">{{ article.title }}</a></h5>
-                        <p class="by-author"><small>{{article.content | slice(0, 50) ~ '...' | nl2br}}</small></p>
+                        <p class="by-author"><small>{{article.content | slice(0, 70) ~ '...' | nl2br}}</small></p>
                     </div>
                 </div>
             </div>

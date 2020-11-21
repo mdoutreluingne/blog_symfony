@@ -19,6 +19,15 @@ class NewsletterRepository extends ServiceEntityRepository
         parent::__construct($registry, Newsletter::class);
     }
 
+    public function findVisibleQuery()
+    {
+        return $this->createQueryBuilder('n')
+            ->where('n.registered = true')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Newsletter[] Returns an array of Newsletter objects
     //  */
