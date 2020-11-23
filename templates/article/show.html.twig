@@ -12,7 +12,7 @@
                     <span>{{ articles.publicationDate |date("m/d/Y H:i:s", "Europe/Paris") }}</span>
                     <div class="categories">
                         {% for category in articles.categories %}
-                            <h6><span class="badge badge-pill badge-primary">{{ category }}</span></h6>
+                            <span class="badge badge-pill badge-primary">{{ category }}</span>
                         {% endfor %}
                     </div>
                 </div>

@@ -20,24 +20,4 @@ class BlogController extends AbstractController
             'articles' => $articles,
         ]);
     }
-
-    /**
-     * @Route("/articles/{slug}-{id}", name="blog_show", requirements={"slug": "[a-z0-9\-]*"})
-     * @param Article $properties
-     * @return Response
-     */
-    public function show(Article $articles, string $slug): Response
-    {
-
-        if ($articles->getSlug() !== $slug) {
-            return $this->redirectToRoute('blog.show', [
-                'id' => $articles->getId(),
-                'slug' => $articles->getSlug()
-            ], 301);
-        }
-
-        return $this->render('blog/show.html.twig', [
-            'articles' => $articles
-        ]);
-    }
 }

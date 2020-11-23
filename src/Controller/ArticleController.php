@@ -56,7 +56,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/articles/{slug}-{id}", name="blog_show", requirements={"slug": "[a-z0-9\-]*"})
+     * @Route("/articles/{slug}-{id}", name="article_show", requirements={"slug": "[a-z0-9\-]*"})
      * @param Article $articles
      * @param string $slug
      * @return Response
@@ -71,9 +71,8 @@ class ArticleController extends AbstractController
             ], 301);
         }
 
-        return $this->render('property/show.html.twig', [
-            'articles' => $articles,
-            'current_menu' => 'properties',
+        return $this->render('article/show.html.twig', [
+            'articles' => $articles
         ]);
     }
 }

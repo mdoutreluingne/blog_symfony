@@ -3,8 +3,10 @@
 {% block title %}Article index{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
-
+        <h1 class="d-inline p-2">Article index</h1>
+        <div class="float-right d-inline p-2">
+            <a href="{{ path('category_index') }}" class="btn btn-primary">Ajouter une category</a>
+        </div>
     <table class="table">
         <thead>
             <tr>
