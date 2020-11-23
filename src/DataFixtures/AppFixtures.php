@@ -2,17 +2,26 @@
 
 namespace App\DataFixtures;
 
+use DateTime;
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Category;
-use DateTime;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+    
     public function load(ObjectManager $manager)
     {
-        for ($i=0; $i < 50; $i++) {
+        /*for ($i=0; $i < 50; $i++) {
             $article = new Article();
             $article
                 ->setPicture(null)
@@ -25,7 +34,13 @@ class AppFixtures extends Fixture
             ;
 
             $manager->persist($article);
-        }
+        }*/
+
+        $user = new User();
+        $user->setEmail('admin.admin@gmail.com');
+        $user->setRoles(array('ROLE_ADMIN'));
+        $user->setPassword($this->passwordEncoder->encodePassword($user, 'testtest'));
+        $manager->persist($user);
 
         $manager->flush();
     }
